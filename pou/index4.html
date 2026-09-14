@@ -50,6 +50,21 @@
 <body>
     <div id="content"> </div>
     <div id="orientation"></div>
+
+<script>
+  // Forzar la creación de la API si el proxy falla o devuelve null
+  window.ytgame = window.ytgame || {};
+  window.ytgame.game = window.ytgame.game || {};
+
+  // Sobrescribir el método de carga para que devuelva siempre una promesa válida
+  const originalLoadData = window.ytgame.game.loadData;
+  window.ytgame.game.loadData = function() {
+    return new Promise((resolve) => {
+      resolve({}); // Devuelve un objeto de guardado vacío
+    });
+  };
+</script>
+
 	
 	<!-- start-fast-library -->
     <script type="text/javascript" nonce="nEsvHewDKSKQZPWExNde-A">
