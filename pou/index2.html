@@ -11,8 +11,30 @@
     <!-- For apple devices -->
     <link rel="apple-touch-icon" type="image/png" href="assets/icon.png" />
     <link rel="stylesheet" href="assets/css/app.css" type="text/css" nonce="nEsvHewDKSKQZPWExNde-A" />
-	<!-- YT PLAYABLES -->
-	<script src="ytgame.js" nonce="nEsvHewDKSKQZPWExNde-A"></script>
+    
+	<!-- SIMULADOR INTERNO DE YT PLAYABLES -->
+	<script nonce="nEsvHewDKSKQZPWExNde-A">
+		window.ytgame = {
+			game: {
+				firstFrameReady: function() { 
+					console.log("YTGame API: First frame simulated."); 
+				}
+			},
+			system: {
+				isAudioEnabled: function() { 
+					return true; 
+				},
+				getLanguage: function() {
+					return new Promise((resolve) => {
+						resolve(navigator.language || "en-US");
+					});
+				},
+				onAudioEnabledChange: function(callback) {
+					window._ytAudioCallback = callback;
+				}
+			}
+		};
+	</script>
 	
 	<!-- #FASTLIB# -->
 	<script defer src="fastLib/_importer.js" data-fast="fastLib/fastHeader.js" data-fast-options="{'checkbrowser':false}" type="text/javascript" nonce="nEsvHewDKSKQZPWExNde-A"></script>
