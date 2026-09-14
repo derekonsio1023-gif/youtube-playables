@@ -12,28 +12,36 @@
     <link rel="apple-touch-icon" type="image/png" href="assets/icon.png" />
     <link rel="stylesheet" href="assets/css/app.css" type="text/css" nonce="nEsvHewDKSKQZPWExNde-A" />
     
-	<!-- SIMULADOR INTERNO DE YT PLAYABLES -->
+	<!-- SIMULADOR AVANZADO ANTIBLOQUEO DE YT PLAYABLES -->
 	<script nonce="nEsvHewDKSKQZPWExNde-A">
-		window.ytgame = {
-			game: {
-				firstFrameReady: function() { 
-					console.log("YTGame API: First frame simulated."); 
+		// Función comodín que simula cualquier método desconocido del juego para evitar el crash
+		const createFallbackFunction = (path) => {
+			return function(...args) {
+				console.log(`YTGame Proxy Fallback: ${path.join('.')}() llamado con:`, args);
+				// Si el juego espera una promesa (como en los métodos system/language), la resolvemos
+				if (path.includes('getLanguage')) {
+					return Promise.resolve(navigator.language || "en-US");
 				}
-			},
-			system: {
-				isAudioEnabled: function() { 
-					return true; 
-				},
-				getLanguage: function() {
-					return new Promise((resolve) => {
-						resolve(navigator.language || "en-US");
-					});
-				},
-				onAudioEnabledChange: function(callback) {
-					window._ytAudioCallback = callback;
+				// Por defecto, si el juego comprueba el estado del audio, devolvemos true
+				if (path.includes('isAudioEnabled')) {
+					return true;
 				}
-			}
+				return null;
+			};
 		};
+
+		// Creamos un Proxy inteligente que genera sub-propiedades dinámicamente
+		const createDynamicProxy = (currentPath = []) => {
+			return new Proxy(createFallbackFunction(currentPath), {
+				get: (target, prop) => {
+					if (prop === 'then' || prop === 'catch') return undefined;
+					return createDynamicProxy([...currentPath, prop]);
+				}
+			});
+		};
+
+		// Inyectamos el objeto ytgame global antes de que carguen las librerías
+		window.ytgame = createDynamicProxy(['ytgame']);
 	</script>
 	
 	<!-- #FASTLIB# -->
@@ -73,7 +81,9 @@
 			await ytgame.system.getLanguage().then(function(lang)
 			{
 				//strip the subtag and default to english if not supported
-				lang = lang.split('-')[0];
+				if (typeof lang === 'string') {
+					lang = lang.split('-')[0];
+				}
 				lang = (window.fast.info.languages.indexOf(lang)>-1) ? lang : window.fast.info.languages[0];
 				console.log('set lang to '+lang);
 				window.fast.lang = lang;
