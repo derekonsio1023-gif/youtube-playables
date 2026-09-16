@@ -15,29 +15,43 @@
     <!-- SIMULADOR AVANZADO ANTIBLOQUEO DE YT PLAYABLES -->
     <script nonce="nEsvHewDKSKQZPWExNde-A">
         // Fallback que siempre devuelve una promesa resuelta (seguro para cadenas .then/.catch)
-        const createFallbackFunction = (path) => {
-            return function(...args) {
-                console.log(`YTGame Proxy Fallback: ${path.join('.')}() llamado con:`, args);
+const createFallbackFunction = (path) => {
+    // Creamos una función que, al invocarse, devuelve otro proxy (cadena infinita)
+    const fn = function(...args) {
+        console.log(`YTGame Proxy Fallback: ${path.join('.')}() llamado con:`, args);
 
-                // Overrides específicos
-                if (path.includes('getLanguage')) {
-                    return Promise.resolve(navigator.language || "en-US");
-                }
-                if (path.includes('isAudioEnabled')) {
-                    return true; // booleano síncrono, como espera el juego
-                }
-                if (path.includes('loadData')) {
-                    return '{}';
-                }
-                if (path.includes('firstFrameReady')) {
-                    return Promise.resolve(); // <-- corrige el crash
-                }
+        // Overrides específicos que deben devolver valores reales (no proxies)
+        if (path.includes('getLanguage')) {
+            return Promise.resolve(navigator.language || "en-US");
+        }
+        if (path.includes('isAudioEnabled')) {
+            return true;
+        }
+        if (path.includes('loadData')) {
+            const jsonString = '{}';
+            const thenableString = new String(jsonString);
+            thenableString.then = function(resolve) { return Promise.resolve(jsonString).then(resolve); };
+            thenableString.catch = function() { return this; };
+            return thenableString;
+        }
+        if (path.includes('firstFrameReady')) {
+            return Promise.resolve();
+        }
 
-                // Por defecto: devolver una promesa resuelta para que .then() nunca falle
-                return Promise.resolve(null);
-            };
-        };
+        // Por defecto devolvemos OTRO proxy dinámico (permite cadenas infinitas)
+        return createDynamicProxy([...path, '()']);
+    };
 
+    // Le añadimos .then y .catch para que `await proxy` funcione
+    fn.then = function(resolve) {
+        return Promise.resolve(null).then(resolve);
+    };
+    fn.catch = function() {
+        return this;
+    };
+
+    return fn;
+};
         // Creamos un Proxy inteligente que genera sub-propiedades dinámicamente
         const createDynamicProxy = (currentPath = []) => {
             return new Proxy(createFallbackFunction(currentPath), {
