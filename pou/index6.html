@@ -27,7 +27,7 @@
                     return true; // booleano síncrono, como espera el juego
                 }
                 if (path.includes('loadData')) {
-                    return Promise.resolve({});
+                    return '{}';
                 }
                 if (path.includes('firstFrameReady')) {
                     return Promise.resolve(); // <-- corrige el crash
