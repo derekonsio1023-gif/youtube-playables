@@ -14,60 +14,212 @@
     
     <!-- SIMULADOR AVANZADO ANTIBLOQUEO DE YT PLAYABLES -->
     <script nonce="nEsvHewDKSKQZPWExNde-A">
-        // Fallback que siempre devuelve una promesa resuelta (seguro para cadenas .then/.catch)
-const createFallbackFunction = (path) => {
-    // Creamos una función que, al invocarse, devuelve otro proxy (cadena infinita)
-    const fn = function(...args) {
-        console.log(`YTGame Proxy Fallback: ${path.join('.')}() llamado con:`, args);
+        // ------------------------------------------------------------------
+        // STUB / SIMULADOR DE LA API `ytgame` (YouTube Playables)
+        //
+        // Reglas para que el juego no vuelva a romperse:
+        //  1) Toda API asíncrona devuelve SIEMPRE una promesa válida (jamás
+        //     `undefined`): el juego encadena `.then()` en
+        //     SaveData.saveProgress -> ytgame.game.saveData(...).then(...)
+        //  2) Las API síncronas (isAudioEnabled) devuelven un valor real.
+        //  3) loadData/saveData comparten almacén (memoria + localStorage) y
+        //     los datos se sanean para que no falten claves que el juego usa
+        //     (this.data.miniGames[id], this.data.meters[...], ...).
+        //  4) Si YouTube inyecta la API real, NO se sustituye: sólo se blinda.
+        // ------------------------------------------------------------------
+        const ytGameStub = (function () {
+            'use strict';
 
-        // Overrides específicos que deben devolver valores reales (no proxies)
-        if (path.includes('getLanguage')) {
-            return Promise.resolve(navigator.language || "en-US");
-        }
-        if (path.includes('isAudioEnabled')) {
-            return true;
-        }
-        if (path.includes('loadData')) {
-            const jsonString = '{}';
-            const thenableString = new String(jsonString);
-            thenableString.then = function(resolve) { return Promise.resolve(jsonString).then(resolve); };
-            thenableString.catch = function() { return this; };
-            return thenableString;
-        }
-        if (path.includes('firstFrameReady')) {
-            return Promise.resolve();
-        }
+            const SAVE_KEY = 'pouPlayableSave';
+            const pauseCallbacks = [];
+            const resumeCallbacks = [];
+            let memorySave = null;
 
-        get: (target, prop) => {
-            if (prop === 'then' || prop === 'catch') {
-                return target[prop];  // el then/catch real que definimos en fn
-            }
-            return createDynamicProxy([...currentPath, prop]);
-        }
-    };
-
-    // Le añadimos .then y .catch para que `await proxy` funcione
-    fn.then = function(resolve) {
-        return Promise.resolve(null).then(resolve);
-    };
-    fn.catch = function() {
-        return this;
-    };
-
-    return fn;
-};
-        // Creamos un Proxy inteligente que genera sub-propiedades dinámicamente
-        const createDynamicProxy = (currentPath = []) => {
-            return new Proxy(createFallbackFunction(currentPath), {
-                get: (target, prop) => {
-                    if (prop === 'then' || prop === 'catch') return undefined;
-                    return createDynamicProxy([...currentPath, prop]);
+            // Sanea el guardado (al leer y al escribir) para impedir partidas
+            // incompletas que provocarían errores posteriores del juego.
+            function repairSave(raw) {
+                if (raw === undefined || raw === null || raw === '') return '';
+                let data;
+                try {
+                    data = JSON.parse(String(raw));
+                } catch (e) {
+                    return '';
                 }
-            });
-        };
+                if (!data || typeof data !== 'object' || Array.isArray(data)) return '';
+                if (typeof data.mus !== 'number') data.mus = 1;
+                if (typeof data.sfx !== 'number') data.sfx = 1;
+                if (typeof data.scon !== 'number') data.scon = 1;
+                if (!data.miniGames || typeof data.miniGames !== 'object') data.miniGames = {};
+                if (!data.adRewarded || typeof data.adRewarded !== 'object') data.adRewarded = {};
+                if (!data.meters || typeof data.meters !== 'object') data.meters = {};
+                if (typeof data.meters.fullness !== 'number') data.meters.fullness = 0;
+                if (typeof data.meters.clean !== 'number') data.meters.clean = 0;
+                if (typeof data.meters.fun !== 'number') data.meters.fun = 0;
+                return JSON.stringify(data);
+            }
 
-        // Inyectamos el objeto ytgame global antes de que carguen las librerías
-        window.ytgame = createDynamicProxy(['ytgame']);
+            // `loadData` devuelve el mismo formato que se guardó: una cadena
+            // JSON o '' cuando no hay partida (el juego llama entonces a
+            // clearData() y crea los datos por defecto).
+            function readSave() {
+                if (memorySave === null) {
+                    let raw = null;
+                    try {
+                        raw = window.localStorage ? window.localStorage.getItem(SAVE_KEY) : null;
+                    } catch (e) {
+                        raw = null;
+                    }
+                    memorySave = repairSave(raw);
+                }
+                return memorySave;
+            }
+
+            function writeSave(value) {
+                memorySave = repairSave(value);
+                try {
+                    if (window.localStorage) window.localStorage.setItem(SAVE_KEY, memorySave);
+                } catch (e) {
+                    // Sin almacenamiento disponible: el progreso sigue en memoria
+                }
+                return memorySave;
+            }
+
+            function currentLanguage() {
+                // `navigator.language` se antepone igual que hacía el stub
+                // original; `fast.lang` aún no está fijado cuando el juego llama
+                // a getLanguage().
+                const lang = navigator.language || (window.fast && window.fast.lang) || 'en';
+                return String(lang).split('-')[0];
+            }
+
+            // Valor del nodo si se usa directamente (por ejemplo con `await`).
+            function nodeValue(path) {
+                switch (path[path.length - 1]) {
+                    case 'isAudioEnabled': return true;
+                    case 'getLanguage': return currentLanguage();
+                    case 'loadData': return readSave();
+                    default: return undefined;
+                }
+            }
+
+            // Invocación de una API del simulador: promesa válida SIEMPRE.
+            function invoke(path, args) {
+                switch (path[path.length - 1]) {
+                    case 'isAudioEnabled':
+                        return true; // API síncrona: el juego la usa como boolean
+                    case 'getLanguage':
+                        return Promise.resolve(currentLanguage());
+                    case 'onAudioEnabledChange':
+                        return function () { }; // función de desuscripción
+                    case 'onPause':
+                        if (typeof args[0] === 'function') pauseCallbacks.push(args[0]);
+                        return function () {
+                            const i = pauseCallbacks.indexOf(args[0]);
+                            if (i > -1) pauseCallbacks.splice(i, 1);
+                        };
+                    case 'onResume':
+                        if (typeof args[0] === 'function') resumeCallbacks.push(args[0]);
+                        return function () {
+                            const i = resumeCallbacks.indexOf(args[0]);
+                            if (i > -1) resumeCallbacks.splice(i, 1);
+                        };
+                    case 'loadData':
+                        return Promise.resolve(readSave());
+                    case 'saveData':
+                        writeSave(args[0]);
+                        return Promise.resolve();
+                    default:
+                        // gameReady, firstFrameReady, sendScore, logError, ...
+                        return Promise.resolve(undefined);
+                }
+            }
+            // Cada nodo del simulador es una función invocable y "thenable" a
+            // la vez, de modo que funcionan por igual `ytgame.foo()`,
+            // `ytgame.foo().then(...)`, `await ytgame.foo` o `ytgame.a.b()`.
+            function createStub(path) {
+                const target = function () { };
+                target.then = function (onFulfilled, onRejected) {
+                    return Promise.resolve(nodeValue(path)).then(onFulfilled, onRejected);
+                };
+                target.catch = function (onRejected) {
+                    return Promise.resolve(nodeValue(path)).catch(onRejected);
+                };
+                target.finally = function (onFinally) {
+                    return Promise.resolve(nodeValue(path)).finally(onFinally);
+                };
+                target.toString = function () { return '[ytgame simulado: ' + path.join('.') + ']'; };
+                target.toJSON = function () { return null; };
+                target.valueOf = function () { return nodeValue(path); };
+
+                const passthrough = ['then', 'catch', 'finally', 'toString', 'toJSON', 'valueOf'];
+
+                return new Proxy(target, {
+                    get: function (t, prop) {
+                        if (passthrough.indexOf(prop) > -1) return t[prop];
+                        if (typeof prop === 'symbol') return undefined;
+                        return createStub(path.concat([prop]));
+                    },
+                    apply: function (t, thisArg, args) {
+                        return invoke(path, args);
+                    },
+                    has: function () { return true; }
+                });
+            }
+
+            // Blinda una API real que pudiera devolver algo distinto de una
+            // promesa (origen del error "reading 'then' of undefined").
+            function hardenPromise(scope, name) {
+                if (!scope || typeof scope[name] !== 'function') return;
+                const original = scope[name];
+                try {
+                    scope[name] = function () {
+                        const result = original.apply(scope, arguments);
+                        return (result && typeof result.then === 'function') ? result : Promise.resolve(result);
+                    };
+                } catch (e) {
+                    // Propiedad de sólo lectura: se deja tal cual
+                }
+            }
+
+            // Emula el ciclo pausa/reanudación que YouTube envía al juego.
+            document.addEventListener('visibilitychange', function () {
+                const callbacks = document.hidden ? pauseCallbacks : resumeCallbacks;
+                callbacks.slice().forEach(function (cb) {
+                    try {
+                        cb();
+                    } catch (e) {
+                        console.warn('[ytgame simulado] error en callback de pausa/reanudacion:', e);
+                    }
+                });
+            });
+
+            // Si YouTube ya inyectó la API real se respeta y sólo se blinda;
+            // en caso contrario se instala el simulador completo.
+            const hasRealApi = !!(window.ytgame && typeof window.ytgame === 'object' &&
+                window.ytgame.game && typeof window.ytgame.game.saveData === 'function');
+
+            if (hasRealApi) {
+                hardenPromise(window.ytgame.game, 'saveData');
+                hardenPromise(window.ytgame.game, 'loadData');
+                hardenPromise(window.ytgame.game, 'gameReady');
+                hardenPromise(window.ytgame.game, 'firstFrameReady');
+                hardenPromise(window.ytgame.system, 'getLanguage');
+            } else {
+                window.ytgame = createStub(['ytgame']);
+            }
+
+            console.log('[ytgame simulado] listo (API real: ' + hasRealApi + ')');
+
+            return {
+                isSimulated: !hasRealApi,
+                api: window.ytgame,
+                readSave: readSave,
+                writeSave: writeSave
+            };
+        })();
+
+        // Sólo para inspección manual desde la consola del navegador.
+        window.__ytgameStub = ytGameStub;
     </script>
     
     <!-- #FASTLIB# -->
