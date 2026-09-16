@@ -13,7 +13,7 @@
         ],
         "UseJoint": 0,
         "IsLoop": false,
-        "Icon": "https://cdn.jsdelivr.net/gh/bubbls/youtube-playables@main/3d-bolt-master/StreamingAssets/Puzzles/Icons/Cat.png",
+        "Icon": "./Icons/Cat.png",
         "ForceUseBuiltin": false
     },
     {
@@ -31,7 +31,7 @@
         ],
         "UseJoint": 0,
         "IsLoop": false,
-        "Icon": "https://cdn.jsdelivr.net/gh/bubbls/youtube-playables@main/3d-bolt-master/StreamingAssets/Puzzles/Icons/Rose.png",
+        "Icon": "./Icons/Rose.png",
         "ForceUseBuiltin": false
     },
     {
@@ -53,7 +53,7 @@
         ],
         "UseJoint": 0,
         "IsLoop": false,
-        "Icon": "https://cdn.jsdelivr.net/gh/bubbls/youtube-playables@main/3d-bolt-master/StreamingAssets/Puzzles/Icons/Sardine_GroupB.png",
+        "Icon": "./Icons/Sardine_GroupB.png",
         "ForceUseBuiltin": false
     },
     {
@@ -74,7 +74,7 @@
         ],
         "UseJoint": 0,
         "IsLoop": false,
-        "Icon": "https://cdn.jsdelivr.net/gh/bubbls/youtube-playables@main/3d-bolt-master/StreamingAssets/Puzzles/Icons/Handlamp.png",
+        "Icon": "./Icons/Handlamp.png",
         "ForceUseBuiltin": false
     },
     {
@@ -97,7 +97,7 @@
         ],
         "UseJoint": 0,
         "IsLoop": false,
-        "Icon": "https://cdn.jsdelivr.net/gh/bubbls/youtube-playables@main/3d-bolt-master/StreamingAssets/Puzzles/Icons/HauntedHouses.png",
+        "Icon": "./Icons/HauntedHouses.png",
         "ForceUseBuiltin": false
     },
     {
@@ -119,7 +119,7 @@
         ],
         "UseJoint": 0,
         "IsLoop": false,
-        "Icon": "https://cdn.jsdelivr.net/gh/bubbls/youtube-playables@main/3d-bolt-master/StreamingAssets/Puzzles/Icons/FruitPie.png",
+        "Icon": "./Icons/FruitPie.png",
         "ForceUseBuiltin": false
     },
     {
@@ -140,7 +140,7 @@
         ],
         "UseJoint": 0,
         "IsLoop": false,
-        "Icon": "https://cdn.jsdelivr.net/gh/bubbls/youtube-playables@main/3d-bolt-master/StreamingAssets/Puzzles/Icons/Guitar.png",
+        "Icon": "./Icons/Guitar.png",
         "ForceUseBuiltin": false
     },
     {
@@ -163,7 +163,7 @@
         ],
         "UseJoint": 0,
         "IsLoop": false,
-        "Icon": "https://cdn.jsdelivr.net/gh/bubbls/youtube-playables@main/3d-bolt-master/StreamingAssets/Puzzles/Icons/PaintingCart.png",
+        "Icon": "./Icons/PaintingCart.png",
         "ForceUseBuiltin": false
     },
     {
@@ -184,7 +184,7 @@
         ],
         "UseJoint": 0,
         "IsLoop": false,
-        "Icon": "https://cdn.jsdelivr.net/gh/bubbls/youtube-playables@main/3d-bolt-master/StreamingAssets/Puzzles/Icons/Snowball.png",
+        "Icon": "./Icons/Snowball.png",
         "ForceUseBuiltin": false
     },
     {
@@ -207,7 +207,7 @@
         ],
         "UseJoint": 0,
         "IsLoop": false,
-        "Icon": "https://cdn.jsdelivr.net/gh/bubbls/youtube-playables@main/3d-bolt-master/StreamingAssets/Puzzles/Icons/Oven.png",
+        "Icon": "./Icons/Oven.png",
         "ForceUseBuiltin": false
     },
     {
@@ -227,7 +227,7 @@
         ],
         "UseJoint": 1,
         "IsLoop": false,
-        "Icon": "https://cdn.jsdelivr.net/gh/bubbls/youtube-playables@main/3d-bolt-master/StreamingAssets/Puzzles/Icons/Women.png",
+        "Icon": "./Icons/Women.png",
         "ForceUseBuiltin": false
     },
     {
@@ -250,7 +250,7 @@
         ],
         "UseJoint": 0,
         "IsLoop": false,
-        "Icon": "https://cdn.jsdelivr.net/gh/bubbls/youtube-playables@main/3d-bolt-master/StreamingAssets/Puzzles/Icons/Trunk.png",
+        "Icon": "./Icons/Trunk.png",
         "ForceUseBuiltin": false
     },
     {
@@ -272,7 +272,7 @@
         ],
         "UseJoint": 0,
         "IsLoop": false,
-        "Icon": "https://cdn.jsdelivr.net/gh/bubbls/youtube-playables@main/3d-bolt-master/StreamingAssets/Puzzles/Icons/VegetableBag_GroupB.png",
+        "Icon": "./Icons/VegetableBag_GroupB.png",
         "ForceUseBuiltin": false
     },
     {
@@ -294,7 +294,7 @@
         ],
         "UseJoint": 0,
         "IsLoop": false,
-        "Icon": "https://cdn.jsdelivr.net/gh/bubbls/youtube-playables@main/3d-bolt-master/StreamingAssets/Puzzles/Icons/CreamCake.png",
+        "Icon": "./Icons/CreamCake.png",
         "ForceUseBuiltin": false
     },
     {
@@ -316,7 +316,7 @@
         ],
         "UseJoint": 0,
         "IsLoop": false,
-        "Icon": "https://cdn.jsdelivr.net/gh/bubbls/youtube-playables@main/3d-bolt-master/StreamingAssets/Puzzles/Icons/C_DirectorChair.png",
+        "Icon": "./Icons/C_DirectorChair.png",
         "ForceUseBuiltin": false
     },
     {
@@ -341,7 +341,7 @@
         ],
         "UseJoint": 0,
         "IsLoop": false,
-        "Icon": "https://cdn.jsdelivr.net/gh/bubbls/youtube-playables@main/3d-bolt-master/StreamingAssets/Puzzles/Icons/SpellBook01.png",
+        "Icon": "./Icons/SpellBook01.png",
         "ForceUseBuiltin": false
     },
     {
@@ -363,7 +363,7 @@
         ],
         "UseJoint": 0,
         "IsLoop": false,
-        "Icon": "https://cdn.jsdelivr.net/gh/bubbls/youtube-playables@main/3d-bolt-master/StreamingAssets/Puzzles/Icons/Stove.png",
+        "Icon": "./Icons/Stove.png",
         "ForceUseBuiltin": false
     },
     {
@@ -386,7 +386,7 @@
         ],
         "UseJoint": 0,
         "IsLoop": false,
-        "Icon": "https://cdn.jsdelivr.net/gh/bubbls/youtube-playables@main/3d-bolt-master/StreamingAssets/Puzzles/Icons/Gardening.png",
+        "Icon": "./Icons/Gardening.png",
         "ForceUseBuiltin": false
     },
     {
@@ -409,7 +409,7 @@
         ],
         "UseJoint": 0,
         "IsLoop": false,
-        "Icon": "https://cdn.jsdelivr.net/gh/bubbls/youtube-playables@main/3d-bolt-master/StreamingAssets/Puzzles/Icons/CoffeeMachine.png",
+        "Icon": "./Icons/CoffeeMachine.png",
         "ForceUseBuiltin": false
     },
     {
@@ -432,7 +432,7 @@
         ],
         "UseJoint": 0,
         "IsLoop": false,
-        "Icon": "https://cdn.jsdelivr.net/gh/bubbls/youtube-playables@main/3d-bolt-master/StreamingAssets/Puzzles/Icons/GoodsSort.png",
+        "Icon": "./Icons/GoodsSort.png",
         "ForceUseBuiltin": false
     },
     {
@@ -453,7 +453,7 @@
         ],
         "UseJoint": 0,
         "IsLoop": false,
-        "Icon": "https://cdn.jsdelivr.net/gh/bubbls/youtube-playables@main/3d-bolt-master/StreamingAssets/Puzzles/Icons/C_Rabbit.png",
+        "Icon": "./Icons/C_Rabbit.png",
         "ForceUseBuiltin": false
     },
     {
@@ -478,7 +478,7 @@
         ],
         "UseJoint": 0,
         "IsLoop": false,
-        "Icon": "https://cdn.jsdelivr.net/gh/bubbls/youtube-playables@main/3d-bolt-master/StreamingAssets/Puzzles/Icons/Suitcase.png",
+        "Icon": "./Icons/Suitcase.png",
         "ForceUseBuiltin": false
     },
     {
@@ -499,7 +499,7 @@
         ],
         "UseJoint": 0,
         "IsLoop": false,
-        "Icon": "https://cdn.jsdelivr.net/gh/bubbls/youtube-playables@main/3d-bolt-master/StreamingAssets/Puzzles/Icons/CandyHouse.png",
+        "Icon": "./Icons/CandyHouse.png",
         "ForceUseBuiltin": false
     },
     {
@@ -524,7 +524,7 @@
         ],
         "UseJoint": 0,
         "IsLoop": false,
-        "Icon": "https://cdn.jsdelivr.net/gh/bubbls/youtube-playables@main/3d-bolt-master/StreamingAssets/Puzzles/Icons/Piano.png",
+        "Icon": "./Icons/Piano.png",
         "ForceUseBuiltin": false
     },
     {
@@ -548,7 +548,7 @@
         ],
         "UseJoint": 0,
         "IsLoop": false,
-        "Icon": "https://cdn.jsdelivr.net/gh/bubbls/youtube-playables@main/3d-bolt-master/StreamingAssets/Puzzles/Icons/ChristmasTree.png",
+        "Icon": "./Icons/ChristmasTree.png",
         "ForceUseBuiltin": false
     },
     {
@@ -570,7 +570,7 @@
         ],
         "UseJoint": 0,
         "IsLoop": false,
-        "Icon": "https://cdn.jsdelivr.net/gh/bubbls/youtube-playables@main/3d-bolt-master/StreamingAssets/Puzzles/Icons/Fridge.png",
+        "Icon": "./Icons/Fridge.png",
         "ForceUseBuiltin": false
     },
     {
@@ -593,7 +593,7 @@
         ],
         "UseJoint": 0,
         "IsLoop": false,
-        "Icon": "https://cdn.jsdelivr.net/gh/bubbls/youtube-playables@main/3d-bolt-master/StreamingAssets/Puzzles/Icons/C_Bird.png",
+        "Icon": "./Icons/C_Bird.png",
         "ForceUseBuiltin": false
     },
     {
@@ -615,7 +615,7 @@
         ],
         "UseJoint": 0,
         "IsLoop": false,
-        "Icon": "https://cdn.jsdelivr.net/gh/bubbls/youtube-playables@main/3d-bolt-master/StreamingAssets/Puzzles/Icons/Cactus.png",
+        "Icon": "./Icons/Cactus.png",
         "ForceUseBuiltin": false
     },
     {
@@ -637,7 +637,7 @@
         ],
         "UseJoint": 0,
         "IsLoop": false,
-        "Icon": "https://cdn.jsdelivr.net/gh/bubbls/youtube-playables@main/3d-bolt-master/StreamingAssets/Puzzles/Icons/Capybara.png",
+        "Icon": "./Icons/Capybara.png",
         "ForceUseBuiltin": false
     },
     {
@@ -659,7 +659,7 @@
         ],
         "UseJoint": 0,
         "IsLoop": false,
-        "Icon": "https://cdn.jsdelivr.net/gh/bubbls/youtube-playables@main/3d-bolt-master/StreamingAssets/Puzzles/Icons/Wine.png",
+        "Icon": "./Icons/Wine.png",
         "ForceUseBuiltin": false
     },
     {
@@ -682,7 +682,7 @@
         ],
         "UseJoint": 0,
         "IsLoop": false,
-        "Icon": "https://cdn.jsdelivr.net/gh/bubbls/youtube-playables@main/3d-bolt-master/StreamingAssets/Puzzles/Icons/Kettle.png",
+        "Icon": "./Icons/Kettle.png",
         "ForceUseBuiltin": false
     },
     {
@@ -705,7 +705,7 @@
         ],
         "UseJoint": 0,
         "IsLoop": false,
-        "Icon": "https://cdn.jsdelivr.net/gh/bubbls/youtube-playables@main/3d-bolt-master/StreamingAssets/Puzzles/Icons/House_GroupB.png",
+        "Icon": "./Icons/House_GroupB.png",
         "ForceUseBuiltin": false
     },
     {
@@ -728,7 +728,7 @@
         ],
         "UseJoint": 0,
         "IsLoop": false,
-        "Icon": "https://cdn.jsdelivr.net/gh/bubbls/youtube-playables@main/3d-bolt-master/StreamingAssets/Puzzles/Icons/C_Hedgehog.png",
+        "Icon": "./Icons/C_Hedgehog.png",
         "ForceUseBuiltin": false
     },
     {
@@ -751,7 +751,7 @@
         ],
         "UseJoint": 0,
         "IsLoop": false,
-        "Icon": "https://cdn.jsdelivr.net/gh/bubbls/youtube-playables@main/3d-bolt-master/StreamingAssets/Puzzles/Icons/FishBox.png",
+        "Icon": "./Icons/FishBox.png",
         "ForceUseBuiltin": false
     },
     {
@@ -771,7 +771,7 @@
         ],
         "UseJoint": 0,
         "IsLoop": false,
-        "Icon": "https://cdn.jsdelivr.net/gh/bubbls/youtube-playables@main/3d-bolt-master/StreamingAssets/Puzzles/Icons/Corn.png",
+        "Icon": "./Icons/Corn.png",
         "ForceUseBuiltin": false
     },
     {
@@ -817,7 +817,7 @@
         ],
         "UseJoint": 0,
         "IsLoop": false,
-        "Icon": "https://cdn.jsdelivr.net/gh/bubbls/youtube-playables@main/3d-bolt-master/StreamingAssets/Puzzles/Icons/CoffeeCup.png",
+        "Icon": "./Icons/CoffeeCup.png",
         "ForceUseBuiltin": false
     },
     {
@@ -837,7 +837,7 @@
         ],
         "UseJoint": 0,
         "IsLoop": false,
-        "Icon": "https://cdn.jsdelivr.net/gh/bubbls/youtube-playables@main/3d-bolt-master/StreamingAssets/Puzzles/Icons/Camera.png",
+        "Icon": "./Icons/Camera.png",
         "ForceUseBuiltin": false
     },
     {
@@ -860,7 +860,7 @@
         ],
         "UseJoint": 0,
         "IsLoop": false,
-        "Icon": "https://cdn.jsdelivr.net/gh/bubbls/youtube-playables@main/3d-bolt-master/StreamingAssets/Puzzles/Icons/C_Helicopter.png",
+        "Icon": "./Icons/C_Helicopter.png",
         "ForceUseBuiltin": false
     },
     {
@@ -884,7 +884,7 @@
         ],
         "UseJoint": 0,
         "IsLoop": false,
-        "Icon": "https://cdn.jsdelivr.net/gh/bubbls/youtube-playables@main/3d-bolt-master/StreamingAssets/Puzzles/Icons/ShoppingCart.png",
+        "Icon": "./Icons/ShoppingCart.png",
         "ForceUseBuiltin": false
     },
     {
@@ -907,7 +907,7 @@
         ],
         "UseJoint": 0,
         "IsLoop": false,
-        "Icon": "https://cdn.jsdelivr.net/gh/bubbls/youtube-playables@main/3d-bolt-master/StreamingAssets/Puzzles/Icons/Eguitar.png",
+        "Icon": "./Icons/Eguitar.png",
         "ForceUseBuiltin": false
     },
     {
@@ -950,7 +950,7 @@
         ],
         "UseJoint": 0,
         "IsLoop": false,
-        "Icon": "https://cdn.jsdelivr.net/gh/bubbls/youtube-playables@main/3d-bolt-master/StreamingAssets/Puzzles/Icons/Camp.png",
+        "Icon": "./Icons/Camp.png",
         "ForceUseBuiltin": false
     },
     {
@@ -973,7 +973,7 @@
         ],
         "UseJoint": 0,
         "IsLoop": false,
-        "Icon": "https://cdn.jsdelivr.net/gh/bubbls/youtube-playables@main/3d-bolt-master/StreamingAssets/Puzzles/Icons/DonutsBox.png",
+        "Icon": "./Icons/DonutsBox.png",
         "ForceUseBuiltin": false
     },
     {
@@ -997,7 +997,7 @@
         ],
         "UseJoint": 0,
         "IsLoop": false,
-        "Icon": "https://cdn.jsdelivr.net/gh/bubbls/youtube-playables@main/3d-bolt-master/StreamingAssets/Puzzles/Icons/C_RunningLion.png",
+        "Icon": "./Icons/C_RunningLion.png",
         "ForceUseBuiltin": false
     },
     {
@@ -1020,7 +1020,7 @@
         ],
         "UseJoint": 0,
         "IsLoop": false,
-        "Icon": "https://cdn.jsdelivr.net/gh/bubbls/youtube-playables@main/3d-bolt-master/StreamingAssets/Puzzles/Icons/Bag.png",
+        "Icon": "./Icons/Bag.png",
         "ForceUseBuiltin": false
     },
     {
@@ -1043,7 +1043,7 @@
         ],
         "UseJoint": 0,
         "IsLoop": false,
-        "Icon": "https://cdn.jsdelivr.net/gh/bubbls/youtube-playables@main/3d-bolt-master/StreamingAssets/Puzzles/Icons/Radio.png",
+        "Icon": "./Icons/Radio.png",
         "ForceUseBuiltin": false
     },
     {
@@ -1089,7 +1089,7 @@
         ],
         "UseJoint": 0,
         "IsLoop": false,
-        "Icon": "https://cdn.jsdelivr.net/gh/bubbls/youtube-playables@main/3d-bolt-master/StreamingAssets/Puzzles/Icons/C_SewingMachine.png",
+        "Icon": "./Icons/C_SewingMachine.png",
         "ForceUseBuiltin": false
     },
     {
@@ -1112,7 +1112,7 @@
         ],
         "UseJoint": 0,
         "IsLoop": false,
-        "Icon": "https://cdn.jsdelivr.net/gh/bubbls/youtube-playables@main/3d-bolt-master/StreamingAssets/Puzzles/Icons/Highheels.png",
+        "Icon": "./Icons/Highheels.png",
         "ForceUseBuiltin": false
     },
     {
@@ -1180,7 +1180,7 @@
         ],
         "UseJoint": 0,
         "IsLoop": false,
-        "Icon": "https://cdn.jsdelivr.net/gh/bubbls/youtube-playables@main/3d-bolt-master/StreamingAssets/Puzzles/Icons/C_Gorilla.png",
+        "Icon": "./Icons/C_Gorilla.png",
         "ForceUseBuiltin": false
     },
     {
@@ -1201,7 +1201,7 @@
         ],
         "UseJoint": 0,
         "IsLoop": false,
-        "Icon": "https://cdn.jsdelivr.net/gh/bubbls/youtube-playables@main/3d-bolt-master/StreamingAssets/Puzzles/Icons/C_Whale.png",
+        "Icon": "./Icons/C_Whale.png",
         "ForceUseBuiltin": false
     },
     {
@@ -1224,7 +1224,7 @@
         ],
         "UseJoint": 0,
         "IsLoop": false,
-        "Icon": "https://cdn.jsdelivr.net/gh/bubbls/youtube-playables@main/3d-bolt-master/StreamingAssets/Puzzles/Icons/DonutShop.png",
+        "Icon": "./Icons/DonutShop.png",
         "ForceUseBuiltin": false
     },
     {
@@ -1291,7 +1291,7 @@
         ],
         "UseJoint": 0,
         "IsLoop": false,
-        "Icon": "https://cdn.jsdelivr.net/gh/bubbls/youtube-playables@main/3d-bolt-master/StreamingAssets/Puzzles/Icons/C_Unicorn.png",
+        "Icon": "./Icons/C_Unicorn.png",
         "ForceUseBuiltin": false
     },
     {
@@ -1313,7 +1313,7 @@
         ],
         "UseJoint": 0,
         "IsLoop": false,
-        "Icon": "https://cdn.jsdelivr.net/gh/bubbls/youtube-playables@main/3d-bolt-master/StreamingAssets/Puzzles/Icons/C_Crab.png",
+        "Icon": "./Icons/C_Crab.png",
         "ForceUseBuiltin": false
     },
     {
@@ -1336,7 +1336,7 @@
         ],
         "UseJoint": 0,
         "IsLoop": false,
-        "Icon": "https://cdn.jsdelivr.net/gh/bubbls/youtube-playables@main/3d-bolt-master/StreamingAssets/Puzzles/Icons/VintagePlayer.png",
+        "Icon": "./Icons/VintagePlayer.png",
         "ForceUseBuiltin": false
     },
     {
@@ -1402,7 +1402,7 @@
         ],
         "UseJoint": 0,
         "IsLoop": false,
-        "Icon": "https://cdn.jsdelivr.net/gh/bubbls/youtube-playables@main/3d-bolt-master/StreamingAssets/Puzzles/Icons/C_Eagle.png",
+        "Icon": "./Icons/C_Eagle.png",
         "ForceUseBuiltin": false
     },
     {
@@ -1424,7 +1424,7 @@
         ],
         "UseJoint": 0,
         "IsLoop": false,
-        "Icon": "https://cdn.jsdelivr.net/gh/bubbls/youtube-playables@main/3d-bolt-master/StreamingAssets/Puzzles/Icons/C_RedSofa.png",
+        "Icon": "./Icons/C_RedSofa.png",
         "ForceUseBuiltin": false
     },
     {
@@ -1447,7 +1447,7 @@
         ],
         "UseJoint": 0,
         "IsLoop": false,
-        "Icon": "https://cdn.jsdelivr.net/gh/bubbls/youtube-playables@main/3d-bolt-master/StreamingAssets/Puzzles/Icons/Tank.png",
+        "Icon": "./Icons/Tank.png",
         "ForceUseBuiltin": false
     },
     {
@@ -1515,7 +1515,7 @@
         ],
         "UseJoint": 0,
         "IsLoop": false,
-        "Icon": "https://cdn.jsdelivr.net/gh/bubbls/youtube-playables@main/3d-bolt-master/StreamingAssets/Puzzles/Icons/C_YellowBird.png",
+        "Icon": "./Icons/C_YellowBird.png",
         "ForceUseBuiltin": false
     },
     {
@@ -1560,7 +1560,7 @@
         ],
         "UseJoint": 0,
         "IsLoop": false,
-        "Icon": "https://cdn.jsdelivr.net/gh/bubbls/youtube-playables@main/3d-bolt-master/StreamingAssets/Puzzles/Icons/CashBox.png",
+        "Icon": "./Icons/CashBox.png",
         "ForceUseBuiltin": false
     },
     {
@@ -1629,7 +1629,7 @@
         ],
         "UseJoint": 0,
         "IsLoop": false,
-        "Icon": "https://cdn.jsdelivr.net/gh/bubbls/youtube-playables@main/3d-bolt-master/StreamingAssets/Puzzles/Icons/C_Dinosaur.png",
+        "Icon": "./Icons/C_Dinosaur.png",
         "ForceUseBuiltin": false
     },
     {
@@ -1649,7 +1649,7 @@
         ],
         "UseJoint": 0,
         "IsLoop": false,
-        "Icon": "https://cdn.jsdelivr.net/gh/bubbls/youtube-playables@main/3d-bolt-master/StreamingAssets/Puzzles/Icons/C_Octopus.png",
+        "Icon": "./Icons/C_Octopus.png",
         "ForceUseBuiltin": false
     },
     {
@@ -1671,7 +1671,7 @@
         ],
         "UseJoint": 0,
         "IsLoop": false,
-        "Icon": "https://cdn.jsdelivr.net/gh/bubbls/youtube-playables@main/3d-bolt-master/StreamingAssets/Puzzles/Icons/Cosmetics.png",
+        "Icon": "./Icons/Cosmetics.png",
         "ForceUseBuiltin": false
     },
     {
@@ -1738,7 +1738,7 @@
         ],
         "UseJoint": 0,
         "IsLoop": false,
-        "Icon": "https://cdn.jsdelivr.net/gh/bubbls/youtube-playables@main/3d-bolt-master/StreamingAssets/Puzzles/Icons/C_Pumpkin.png",
+        "Icon": "./Icons/C_Pumpkin.png",
         "ForceUseBuiltin": false
     },
     {
@@ -1759,7 +1759,7 @@
         ],
         "UseJoint": 0,
         "IsLoop": false,
-        "Icon": "https://cdn.jsdelivr.net/gh/bubbls/youtube-playables@main/3d-bolt-master/StreamingAssets/Puzzles/Icons/C_WhiteFlower.png",
+        "Icon": "./Icons/C_WhiteFlower.png",
         "ForceUseBuiltin": false
     },
     {
@@ -1783,7 +1783,7 @@
         ],
         "UseJoint": 0,
         "IsLoop": false,
-        "Icon": "https://cdn.jsdelivr.net/gh/bubbls/youtube-playables@main/3d-bolt-master/StreamingAssets/Puzzles/Icons/RobotCat.png",
+        "Icon": "./Icons/RobotCat.png",
         "ForceUseBuiltin": false
     },
     {
@@ -1852,7 +1852,7 @@
         ],
         "UseJoint": 0,
         "IsLoop": false,
-        "Icon": "https://cdn.jsdelivr.net/gh/bubbls/youtube-playables@main/3d-bolt-master/StreamingAssets/Puzzles/Icons/C_ClownFish.png",
+        "Icon": "./Icons/C_ClownFish.png",
         "ForceUseBuiltin": false
     },
     {
@@ -1874,7 +1874,7 @@
         ],
         "UseJoint": 0,
         "IsLoop": false,
-        "Icon": "https://cdn.jsdelivr.net/gh/bubbls/youtube-playables@main/3d-bolt-master/StreamingAssets/Puzzles/Icons/C_Bee.png",
+        "Icon": "./Icons/C_Bee.png",
         "ForceUseBuiltin": false
     },
     {
@@ -1898,7 +1898,7 @@
         ],
         "UseJoint": 0,
         "IsLoop": false,
-        "Icon": "https://cdn.jsdelivr.net/gh/bubbls/youtube-playables@main/3d-bolt-master/StreamingAssets/Puzzles/Icons/Marker.png",
+        "Icon": "./Icons/Marker.png",
         "ForceUseBuiltin": false
     },
     {
@@ -1964,7 +1964,7 @@
         ],
         "UseJoint": 0,
         "IsLoop": false,
-        "Icon": "https://cdn.jsdelivr.net/gh/bubbls/youtube-playables@main/3d-bolt-master/StreamingAssets/Puzzles/Icons/C_Apple.png",
+        "Icon": "./Icons/C_Apple.png",
         "ForceUseBuiltin": false
     },
     {
@@ -1987,7 +1987,7 @@
         ],
         "UseJoint": 0,
         "IsLoop": false,
-        "Icon": "https://cdn.jsdelivr.net/gh/bubbls/youtube-playables@main/3d-bolt-master/StreamingAssets/Puzzles/Icons/C_Tree.png",
+        "Icon": "./Icons/C_Tree.png",
         "ForceUseBuiltin": false
     },
     {
@@ -2009,7 +2009,7 @@
         ],
         "UseJoint": 0,
         "IsLoop": false,
-        "Icon": "https://cdn.jsdelivr.net/gh/bubbls/youtube-playables@main/3d-bolt-master/StreamingAssets/Puzzles/Icons/BreadMaker.png",
+        "Icon": "./Icons/BreadMaker.png",
         "ForceUseBuiltin": false
     },
     {
@@ -2096,7 +2096,7 @@
         ],
         "UseJoint": 0,
         "IsLoop": false,
-        "Icon": "https://cdn.jsdelivr.net/gh/bubbls/youtube-playables@main/3d-bolt-master/StreamingAssets/Puzzles/Icons/C_SantaHat.png",
+        "Icon": "./Icons/C_SantaHat.png",
         "ForceUseBuiltin": false
     },
     {
@@ -2117,7 +2117,7 @@
         ],
         "UseJoint": 0,
         "IsLoop": false,
-        "Icon": "https://cdn.jsdelivr.net/gh/bubbls/youtube-playables@main/3d-bolt-master/StreamingAssets/Puzzles/Icons/GameBoy.png",
+        "Icon": "./Icons/GameBoy.png",
         "ForceUseBuiltin": false
     },
     {
@@ -2183,7 +2183,7 @@
         ],
         "UseJoint": 0,
         "IsLoop": false,
-        "Icon": "https://cdn.jsdelivr.net/gh/bubbls/youtube-playables@main/3d-bolt-master/StreamingAssets/Puzzles/Icons/C_Gift.png",
+        "Icon": "./Icons/C_Gift.png",
         "ForceUseBuiltin": false
     },
     {
@@ -2205,7 +2205,7 @@
         ],
         "UseJoint": 0,
         "IsLoop": false,
-        "Icon": "https://cdn.jsdelivr.net/gh/bubbls/youtube-playables@main/3d-bolt-master/StreamingAssets/Puzzles/Icons/C_CuteFox.png",
+        "Icon": "./Icons/C_CuteFox.png",
         "ForceUseBuiltin": false
     },
     {
@@ -2228,7 +2228,7 @@
         ],
         "UseJoint": 0,
         "IsLoop": false,
-        "Icon": "https://cdn.jsdelivr.net/gh/bubbls/youtube-playables@main/3d-bolt-master/StreamingAssets/Puzzles/Icons/Butchershop.png",
+        "Icon": "./Icons/Butchershop.png",
         "ForceUseBuiltin": false
     },
     {
@@ -2296,7 +2296,7 @@
         ],
         "UseJoint": 0,
         "IsLoop": false,
-        "Icon": "https://cdn.jsdelivr.net/gh/bubbls/youtube-playables@main/3d-bolt-master/StreamingAssets/Puzzles/Icons/C_MonsterToy_04.png",
+        "Icon": "./Icons/C_MonsterToy_04.png",
         "ForceUseBuiltin": false
     },
     {
@@ -2317,7 +2317,7 @@
         ],
         "UseJoint": 0,
         "IsLoop": false,
-        "Icon": "https://cdn.jsdelivr.net/gh/bubbls/youtube-playables@main/3d-bolt-master/StreamingAssets/Puzzles/Icons/C_Cactus.png",
+        "Icon": "./Icons/C_Cactus.png",
         "ForceUseBuiltin": false
     },
     {
@@ -2342,7 +2342,7 @@
         ],
         "UseJoint": 0,
         "IsLoop": false,
-        "Icon": "https://cdn.jsdelivr.net/gh/bubbls/youtube-playables@main/3d-bolt-master/StreamingAssets/Puzzles/Icons/Sandwich.png",
+        "Icon": "./Icons/Sandwich.png",
         "ForceUseBuiltin": false
     },
     {
@@ -2410,7 +2410,7 @@
         ],
         "UseJoint": 0,
         "IsLoop": false,
-        "Icon": "https://cdn.jsdelivr.net/gh/bubbls/youtube-playables@main/3d-bolt-master/StreamingAssets/Puzzles/Icons/C_Rooster.png",
+        "Icon": "./Icons/C_Rooster.png",
         "ForceUseBuiltin": false
     },
     {
@@ -2434,7 +2434,7 @@
         ],
         "UseJoint": 0,
         "IsLoop": false,
-        "Icon": "https://cdn.jsdelivr.net/gh/bubbls/youtube-playables@main/3d-bolt-master/StreamingAssets/Puzzles/Icons/C_Sleigh.png",
+        "Icon": "./Icons/C_Sleigh.png",
         "ForceUseBuiltin": false
     },
     {
@@ -2455,7 +2455,7 @@
         ],
         "UseJoint": 0,
         "IsLoop": false,
-        "Icon": "https://cdn.jsdelivr.net/gh/bubbls/youtube-playables@main/3d-bolt-master/StreamingAssets/Puzzles/Icons/TV.png",
+        "Icon": "./Icons/TV.png",
         "ForceUseBuiltin": false
     },
     {
@@ -2523,7 +2523,7 @@
         ],
         "UseJoint": 0,
         "IsLoop": false,
-        "Icon": "https://cdn.jsdelivr.net/gh/bubbls/youtube-playables@main/3d-bolt-master/StreamingAssets/Puzzles/Icons/C_Seal.png",
+        "Icon": "./Icons/C_Seal.png",
         "ForceUseBuiltin": false
     },
     {
@@ -2544,7 +2544,7 @@
         ],
         "UseJoint": 0,
         "IsLoop": false,
-        "Icon": "https://cdn.jsdelivr.net/gh/bubbls/youtube-playables@main/3d-bolt-master/StreamingAssets/Puzzles/Icons/C_Saxophone.png",
+        "Icon": "./Icons/C_Saxophone.png",
         "ForceUseBuiltin": false
     },
     {
@@ -2569,7 +2569,7 @@
         ],
         "UseJoint": 0,
         "IsLoop": false,
-        "Icon": "https://cdn.jsdelivr.net/gh/bubbls/youtube-playables@main/3d-bolt-master/StreamingAssets/Puzzles/Icons/CarriageShop.png",
+        "Icon": "./Icons/CarriageShop.png",
         "ForceUseBuiltin": false
     },
     {
@@ -2658,7 +2658,7 @@
         ],
         "UseJoint": 0,
         "IsLoop": false,
-        "Icon": "https://cdn.jsdelivr.net/gh/bubbls/youtube-playables@main/3d-bolt-master/StreamingAssets/Puzzles/Icons/C_Sushi_002.png",
+        "Icon": "./Icons/C_Sushi_002.png",
         "ForceUseBuiltin": false
     },
     {
@@ -2682,7 +2682,7 @@
         ],
         "UseJoint": 0,
         "IsLoop": false,
-        "Icon": "https://cdn.jsdelivr.net/gh/bubbls/youtube-playables@main/3d-bolt-master/StreamingAssets/Puzzles/Icons/Baozi.png",
+        "Icon": "./Icons/Baozi.png",
         "ForceUseBuiltin": false
     },
     {
@@ -2772,7 +2772,7 @@
         ],
         "UseJoint": 0,
         "IsLoop": false,
-        "Icon": "https://cdn.jsdelivr.net/gh/bubbls/youtube-playables@main/3d-bolt-master/StreamingAssets/Puzzles/Icons/C_CoconutTree.png",
+        "Icon": "./Icons/C_CoconutTree.png",
         "ForceUseBuiltin": false
     },
     {
@@ -2795,7 +2795,7 @@
         ],
         "UseJoint": 0,
         "IsLoop": false,
-        "Icon": "https://cdn.jsdelivr.net/gh/bubbls/youtube-playables@main/3d-bolt-master/StreamingAssets/Puzzles/Icons/BubbleTea.png",
+        "Icon": "./Icons/BubbleTea.png",
         "ForceUseBuiltin": false
     },
     {
@@ -2860,7 +2860,7 @@
         ],
         "UseJoint": 0,
         "IsLoop": false,
-        "Icon": "https://cdn.jsdelivr.net/gh/bubbls/youtube-playables@main/3d-bolt-master/StreamingAssets/Puzzles/Icons/C_Monkey.png",
+        "Icon": "./Icons/C_Monkey.png",
         "ForceUseBuiltin": false
     },
     {
@@ -2885,7 +2885,7 @@
         ],
         "UseJoint": 0,
         "IsLoop": false,
-        "Icon": "https://cdn.jsdelivr.net/gh/bubbls/youtube-playables@main/3d-bolt-master/StreamingAssets/Puzzles/Icons/C_Flamingo.png",
+        "Icon": "./Icons/C_Flamingo.png",
         "ForceUseBuiltin": false
     },
     {
@@ -2908,7 +2908,7 @@
         ],
         "UseJoint": 0,
         "IsLoop": false,
-        "Icon": "https://cdn.jsdelivr.net/gh/bubbls/youtube-playables@main/3d-bolt-master/StreamingAssets/Puzzles/Icons/FruitBasket.png",
+        "Icon": "./Icons/FruitBasket.png",
         "ForceUseBuiltin": false
     },
     {
@@ -2979,7 +2979,7 @@
         ],
         "UseJoint": 0,
         "IsLoop": false,
-        "Icon": "https://cdn.jsdelivr.net/gh/bubbls/youtube-playables@main/3d-bolt-master/StreamingAssets/Puzzles/Icons/C_Helmet.png",
+        "Icon": "./Icons/C_Helmet.png",
         "ForceUseBuiltin": false
     },
     {
@@ -3025,7 +3025,7 @@
         ],
         "UseJoint": 0,
         "IsLoop": false,
-        "Icon": "https://cdn.jsdelivr.net/gh/bubbls/youtube-playables@main/3d-bolt-master/StreamingAssets/Puzzles/Icons/Closestool.png",
+        "Icon": "./Icons/Closestool.png",
         "ForceUseBuiltin": false
     },
     {
@@ -3091,7 +3091,7 @@
         ],
         "UseJoint": 0,
         "IsLoop": false,
-        "Icon": "https://cdn.jsdelivr.net/gh/bubbls/youtube-playables@main/3d-bolt-master/StreamingAssets/Puzzles/Icons/C_ToyPlane.png",
+        "Icon": "./Icons/C_ToyPlane.png",
         "ForceUseBuiltin": false
     },
     {
@@ -3136,7 +3136,7 @@
         ],
         "UseJoint": 0,
         "IsLoop": false,
-        "Icon": "https://cdn.jsdelivr.net/gh/bubbls/youtube-playables@main/3d-bolt-master/StreamingAssets/Puzzles/Icons/Bank.png",
+        "Icon": "./Icons/Bank.png",
         "ForceUseBuiltin": false
     },
     {
@@ -3201,7 +3201,7 @@
         ],
         "UseJoint": 0,
         "IsLoop": false,
-        "Icon": "https://cdn.jsdelivr.net/gh/bubbls/youtube-playables@main/3d-bolt-master/StreamingAssets/Puzzles/Icons/C_Icecream_03.png",
+        "Icon": "./Icons/C_Icecream_03.png",
         "ForceUseBuiltin": false
     },
     {
@@ -3222,7 +3222,7 @@
         ],
         "UseJoint": 0,
         "IsLoop": false,
-        "Icon": "https://cdn.jsdelivr.net/gh/bubbls/youtube-playables@main/3d-bolt-master/StreamingAssets/Puzzles/Icons/C_Searay.png",
+        "Icon": "./Icons/C_Searay.png",
         "ForceUseBuiltin": false
     },
     {
@@ -3245,7 +3245,7 @@
         ],
         "UseJoint": 0,
         "IsLoop": false,
-        "Icon": "https://cdn.jsdelivr.net/gh/bubbls/youtube-playables@main/3d-bolt-master/StreamingAssets/Puzzles/Icons/JunkFood.png",
+        "Icon": "./Icons/JunkFood.png",
         "ForceUseBuiltin": false
     },
     {
@@ -3314,7 +3314,7 @@
         ],
         "UseJoint": 0,
         "IsLoop": false,
-        "Icon": "https://cdn.jsdelivr.net/gh/bubbls/youtube-playables@main/3d-bolt-master/StreamingAssets/Puzzles/Icons/C_Redheadbird.png",
+        "Icon": "./Icons/C_Redheadbird.png",
         "ForceUseBuiltin": false
     },
     {
@@ -3338,7 +3338,7 @@
         ],
         "UseJoint": 0,
         "IsLoop": false,
-        "Icon": "https://cdn.jsdelivr.net/gh/bubbls/youtube-playables@main/3d-bolt-master/StreamingAssets/Puzzles/Icons/C_YellowBabyDuck.png",
+        "Icon": "./Icons/C_YellowBabyDuck.png",
         "ForceUseBuiltin": false
     },
     {
@@ -3360,7 +3360,7 @@
         ],
         "UseJoint": 0,
         "IsLoop": false,
-        "Icon": "https://cdn.jsdelivr.net/gh/bubbls/youtube-playables@main/3d-bolt-master/StreamingAssets/Puzzles/Icons/Toys.png",
+        "Icon": "./Icons/Toys.png",
         "ForceUseBuiltin": false
     }
 ]
