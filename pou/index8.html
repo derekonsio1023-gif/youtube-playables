@@ -38,8 +38,12 @@ const createFallbackFunction = (path) => {
             return Promise.resolve();
         }
 
-        // Por defecto devolvemos OTRO proxy dinámico (permite cadenas infinitas)
-        return createDynamicProxy([...path, '()']);
+        get: (target, prop) => {
+            if (prop === 'then' || prop === 'catch') {
+                return target[prop];  // el then/catch real que definimos en fn
+            }
+            return createDynamicProxy([...currentPath, prop]);
+        }
     };
 
     // Le añadimos .then y .catch para que `await proxy` funcione
