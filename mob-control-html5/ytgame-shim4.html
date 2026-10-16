@@ -10,7 +10,9 @@
 <script>
 function ULTRON_SHIM() {
   try {
-    // ── 1) Un solo parche de createElement (CORS + bloqueo ytgame) ──
+    console.log('[ULTRON] shim arrancando, contexto:', window === top ? 'TOP' : 'IFRAME');
+
+    // ── 1) createElement: CORS + bloqueo ytgame ──
     var _create = document.createElement.bind(document);
     document.createElement = function (tag) {
       var el = _create(tag);
@@ -23,7 +25,10 @@ function ULTRON_SHIM() {
         Object.defineProperty(el, 'src', {
           get: function () { return _src; },
           set: function (v) {
-            if (typeof v === 'string' && /ytgame\.js/i.test(v)) return;
+            if (typeof v === 'string' && /ytgame\.js/i.test(v)) {
+              console.log('[ULTRON] bloqueado script:', v);
+              return;
+            }
             _src = v;
             el.setAttribute('src', v);
           },
@@ -36,11 +41,14 @@ function ULTRON_SHIM() {
     // ── 2) appendChild: bloquear scripts ytgame.js ──
     var _append = Element.prototype.appendChild;
     Element.prototype.appendChild = function (c) {
-      if (c && c.tagName === 'SCRIPT' && c.src && /ytgame\.js/i.test(c.src)) return c;
+      if (c && c.tagName === 'SCRIPT' && c.src && /ytgame\.js/i.test(c.src)) {
+        console.log('[ULTRON] bloqueado appendChild:', c.src);
+        return c;
+      }
       return _append.call(this, c);
     };
 
-    // ── 3) CORS: interceptar src y crossOrigin en <img> ──
+    // ── 3) CORS en imágenes ──
     var srcDesc = Object.getOwnPropertyDescriptor(HTMLImageElement.prototype, 'src');
     if (srcDesc) {
       Object.defineProperty(HTMLImageElement.prototype, 'src', {
@@ -115,7 +123,7 @@ function ULTRON_SHIM() {
       });
     }
 
-    // ── 6) Instalar en window ──
+    // ── 6) Instalar en window (blindado) ──
     var s = wrap(api, 'ytgame');
     try {
       Object.defineProperty(window, 'ytgame', {
@@ -127,12 +135,34 @@ function ULTRON_SHIM() {
     } catch (e) {
       window.ytgame = s;
     }
-    console.log('[ULTRON] shim instalado, ytgame definido');
+    console.log('[ULTRON] shim instalado, window.ytgame =', typeof window.ytgame);
+
+    // ── 7) Watchdog: reinstalar si algo borra ytgame ──
+    var _checkCount = 0;
+    setInterval(function () {
+      if (window.ytgame !== s) {
+        try {
+          Object.defineProperty(window, 'ytgame', {
+            get: function () { return s; },
+            set: function () {},
+            configurable: false,
+            enumerable: true
+          });
+          console.log('[ULTRON] ytgame reinstalado (watchdog #' + (++_checkCount) + ')');
+        } catch (e) {
+          try { window.ytgame = s; } catch (e2) {}
+        }
+      }
+    }, 50);
+
   } catch (e) {
     console.error('[ULTRON] shim error:', e);
   }
 }
 
+// ══════════════════════════════════════════════════════════════════
+//  Cargador
+// ══════════════════════════════════════════════════════════════════
 (function () {
   var LT = String.fromCharCode(60);
   var GT = String.fromCharCode(62);
@@ -146,11 +176,15 @@ function ULTRON_SHIM() {
 
   var SHIM = SC + '(' + ULTRON_SHIM.toString() + ')();' + EC;
 
+  console.log('[ULTRON] padre: fetch de', GAME_URL);
+
   fetch(GAME_URL)
     .then(function (r) { return r.text(); })
     .then(function (html) {
+      // 1) base href
       html = html.replace(/<head([^>]*)>/i, '<head$1><base href="' + BASE_DIR + '">');
 
+      // 2) Quitar scripts estaticos que apunten a ytgame
       var needle = 'ytgame.js';
       var i = html.indexOf(needle);
       while (i !== -1) {
@@ -162,6 +196,7 @@ function ULTRON_SHIM() {
         i = html.indexOf(needle, i + needle.length);
       }
 
+      // 3) Inyeccion robusta
       var injected = false;
       function tryAt(re, after) {
         if (injected) return;
@@ -179,10 +214,11 @@ function ULTRON_SHIM() {
 
       console.log('[ULTRON] inyectado:', injected, '| shim bytes:', SHIM.length);
 
-      // ← Aquí está el cambio clave: srcdoc en vez de document.write
+      // 4) Cargar en el iframe
       document.getElementById('frame').srcdoc = html;
     })
     .catch(function (e) {
+      console.error('[ULTRON] error:', e);
       document.body.innerHTML = 'Error: ' + (e && e.message ? e.message : e);
     });
 })();
