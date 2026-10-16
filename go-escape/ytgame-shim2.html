@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Cargando…</title>
+<style>html,body{margin:0;height:100%;background:#000;overflow:hidden;color:#fff;font-family:monospace</style>
+</head>
+<body>
+<script>
+// ══════════════════════════════════════════════════════════════════
+//  SHIM — definido como función real (cero escapes, cero problemas)
+// ══════════════════════════════════════════════════════════════════
+function ULTRON_SHIM() {
+  // 0a) Forzar crossOrigin='anonymous' en imágenes cross-origin
+  (function () {
+    var desc = Object.getOwnPropertyDescriptor(HTMLImageElement.prototype, 'src');
+    Object.defineProperty(HTMLImageElement.prototype, 'src', {
+      get: function () { return desc.get.call(this); },
+      set: function (v) {
+        if (!this.crossOrigin && typeof v === 'string' && /^https?:/i.test(v)) {
+          this.crossOrigin = 'anonymous';
+        }
+        desc.set.call(this, v);
+      },
+      configurable: true
+    });
+    var _sa = Element.prototype.setAttribute;
+    Element.prototype.setAttribute = function (n, v) {
+      if (this.tagName === 'IMG' && String(n).toLowerCase() === 'src'
+          && typeof v === 'string' && /^https?:/i.test(v)) {
+        if (!this.crossOrigin) this.crossOrigin = 'anonymous';
+      }
+      return _sa.call(this, n, v);
+    };
+  })();
+
+  // 0b) fetch tolerante: 404 en .json -> devuelve {}
+  (function () {
+    var _f = window.fetch;
+    window.fetch = function () {
+      var u = arguments[0];
+      var url = (typeof u === 'string') ? u : (u && u.url);
+      return _f.apply(this, arguments).then(function (r) {
+        if (!r.ok && /\.json(\?|$)/i.test(url || '')) {
+          return new Response('{}', { status: 200, headers: { 'Content-Type': 'application/json' } });
+        }
+        return r;
+      });
+    };
+  })();
+
+  // 0c) Bloquear el SDK real de YouTube
+  (function () {
+    var _create = document.createElement.bind(document);
+    document.createElement = function (tag) {
+      var el = _create(tag);
+      if (String(tag).toLowerCase() === 'script') {
+        var _src = '';
+        Object.defineProperty(el, 'src', {
+          get: function () { return _src; },
+          set: function (v) {
+            if (typeof v === 'string' && /ytgame\.js/i.test(v)) return;
+            _src = v;
+            el.setAttribute('src', v);
+          },
+          configurable: true
+        });
+      }
+      return el;
+    };
+    var _append = Element.prototype.appendChild;
+    Element.prototype.appendChild = function (child) {
+      if (child && child.tagName === 'SCRIPT' && child.src && /ytgame\.js/i.test(child.src)) {
+        return child;
+      }
+      return _append.call(this, child);
+    };
+  })();
+
+  // 1) API del shim
+  var P = function (v) { return function () { return Promise.resolve(v); }; };
+  var N = function () {};
+  var SAVE = P({ data: '', checksum: '' });
+
+  var api = {
+    game: {
+      firstFrameReady: N, gameReady: N,
+      loadData: SAVE, saveData: P(), sendScore: P(), log: N,
+      getLanguage: P('en'),
+      getSafeArea: P({ top: 0, left: 0, right: 0, bottom: 0 })
+    },
+    system: {
+      onPause: N, onResume: N, onStateChange: N,
+      isAudioEnabled: P(true), onAudioEnabledChange: N
+    },
+    engagement: { sendScore: P(), openStore: P() },
+    environment: { getEnvironment: P({}) },
+    health: { logError: N, logWarning: N, logInfo: N },
+    ads: {
+      requestInterstitialAd: P(),
+      requestRewardedAd: P({ status: 'closed' })
+    }
+  };
+
+  // 2) Proxy recursivo
+  function wrap(o, p) {
+    return new Proxy(o, {
+      get: function (t, k) {
+        if (k === 'then') return undefined;
+        if (typeof k === 'symbol') return undefined;
+        var v = t[k];
+        if (v !== undefined) {
+          if (typeof v === 'function') return v;
+          if (typeof v === 'object' && v !== null) return wrap(v, p + '.' + String(k));
+          return v;
+        }
+        var stub = function () { return Promise.resolve({ data: '', checksum: '' }); };
+        return wrap(stub, p + '.' + String(k));
+      },
+      apply: function () { return Promise.resolve({ data: '', checksum: '' }); }
+    });
+  }
+
+  // 3) Blindar el global
+  var s = wrap(api, 'ytgame');
+  Object.defineProperty(window, 'ytgame', {
+    get: function () { return s; },
+    set: function () {},
+    configurable: false,
+    enumerable: true
+  });
+}
+
+// ══════════════════════════════════════════════════════════════════
+//  Cargador: fetch -> modificar -> document.write
+// ══════════════════════════════════════════════════════════════════
+(function () {
+  var LT = String.fromCharCode(60);   // <
+  var GT = String.fromCharCode(62);   // >
+  var SL = String.fromCharCode(47);   // /
+  var SC = LT + 'script' + GT;
+  var EC = LT + SL + 'script' + GT;
+
+  var qs = new URLSearchParams(location.search);
+  var GAME_URL = qs.get('g')
+    || 'https://raw.githack.com/derekonsio1023-gif/youtube-playables/refs/heads/main/flappy%20dunk/index.html';
+  var BASE_DIR = GAME_URL.replace(/[^/]*$/, '');
+
+  var SHIM = SC + '(' + ULTRON_SHIM.toString() + ')();' + EC;
+
+  fetch(GAME_URL)
+    .then(function (r) { return r.text(); })
+    .then(function (html) {
+      html = html.replace(/<head([^>]*)>/i, '<head$1><base href="' + BASE_DIR + '">');
+
+      // Quitar cualquier script que cargue el SDK real
+      var needle = 'ytgame.js';
+      var i = html.indexOf(needle);
+      while (i !== -1) {
+        var openTag = html.lastIndexOf(LT, i);
+        var closeTag = html.indexOf(EC, i);
+        if (openTag !== -1 && closeTag !== -1) {
+          html = html.slice(0, openTag) + html.slice(closeTag + EC.length);
+        }
+        i = html.indexOf(needle, i + needle.length);
+      }
+
+      // Inyectar el shim antes del primer script del juego
+      var firstScript = html.indexOf(SC);
+      if (firstScript !== -1) {
+        html = html.slice(0, firstScript) + SHIM + html.slice(firstScript);
+      } else {
+        html = html.replace(new RegExp('(' + LT + '\\/head' + GT + ')', 'i'), SHIM + '$1');
+      }
+
+      document.open();
+      document.write(html);
+      document.close();
+    })
+    .catch(function (e) {
+      document.body.innerHTML = 'Error cargando el juego: ' + (e && e.message ? e.message : e);
+    });
+})();
+</script>
+</body>
+</html>
