@@ -8,48 +8,69 @@
 <body>
 <script>
 // ══════════════════════════════════════════════════════════════════
-//  SHIM — definido como función real (cero escapes, cero problemas)
+//  SHIM como función real (cero problemas de escape)
 // ══════════════════════════════════════════════════════════════════
 function ULTRON_SHIM() {
-  // 0a) Forzar crossOrigin='anonymous' en imágenes cross-origin
+  // ── 0a) CORS: interceptar TODOS los caminos posibles ──
   (function () {
-    var desc = Object.getOwnPropertyDescriptor(HTMLImageElement.prototype, 'src');
-    Object.defineProperty(HTMLImageElement.prototype, 'src', {
-      get: function () { return desc.get.call(this); },
-      set: function (v) {
-        if (!this.crossOrigin && typeof v === 'string' && /^https?:/i.test(v)) {
-          this.crossOrigin = 'anonymous';
-        }
-        desc.set.call(this, v);
-      },
-      configurable: true
-    });
+    function forceCORS(el) {
+      if (!el || el.__ultronCors) return;
+      el.__ultronCors = true;
+      try { if (!el.crossOrigin) el.crossOrigin = 'anonymous'; } catch (e) {}
+    }
+
+    // 1) src setter (path principal de PIXI)
+    try {
+      var srcDesc = Object.getOwnPropertyDescriptor(HTMLImageElement.prototype, 'src');
+      if (srcDesc) {
+        Object.defineProperty(HTMLImageElement.prototype, 'src', {
+          get: function () { return srcDesc.get.call(this); },
+          set: function (v) { forceCORS(this); srcDesc.set.call(this, v); },
+          configurable: true
+        });
+      }
+    } catch (e) {}
+
+    // 2) crossOrigin setter (PIXI hace img.crossOrigin = null)
+    try {
+      var coDesc = Object.getOwnPropertyDescriptor(HTMLImageElement.prototype, 'crossOrigin');
+      if (coDesc) {
+        Object.defineProperty(HTMLImageElement.prototype, 'crossOrigin', {
+          get: function () { return coDesc.get.call(this); },
+          set: function (v) { coDesc.set.call(this, v || 'anonymous'); },
+          configurable: true
+        });
+      }
+    } catch (e) {}
+
+    // 3) setAttribute('src', ...)
     var _sa = Element.prototype.setAttribute;
     Element.prototype.setAttribute = function (n, v) {
-      if (this.tagName === 'IMG' && String(n).toLowerCase() === 'src'
-          && typeof v === 'string' && /^https?:/i.test(v)) {
-        if (!this.crossOrigin) this.crossOrigin = 'anonymous';
-      }
+      if (this.tagName === 'IMG' && String(n).toLowerCase() === 'src') forceCORS(this);
       return _sa.call(this, n, v);
     };
-  })();
 
-  // 0b) fetch tolerante: 404 en .json -> devuelve {}
-  (function () {
-    var _f = window.fetch;
-    window.fetch = function () {
-      var u = arguments[0];
-      var url = (typeof u === 'string') ? u : (u && u.url);
-      return _f.apply(this, arguments).then(function (r) {
-        if (!r.ok && /\.json(\?|$)/i.test(url || '')) {
-          return new Response('{}', { status: 200, headers: { 'Content-Type': 'application/json' } });
-        }
-        return r;
-      });
+    // 4) createElement('img')
+    var _create = document.createElement.bind(document);
+    document.createElement = function (tag) {
+      var el = _create(tag);
+      if (String(tag).toLowerCase() === 'img') forceCORS(el);
+      return el;
     };
+
+    // 5) new Image()
+    try {
+      var _Image = window.Image;
+      window.Image = function (w, h) {
+        var img = new _Image(w, h);
+        forceCORS(img);
+        return img;
+      };
+      window.Image.prototype = _Image.prototype;
+    } catch (e) {}
   })();
 
-  // 0c) Bloquear el SDK real de YouTube
+  // ── 0b) Bloquear SDK real de ytgame ──
   (function () {
     var _create = document.createElement.bind(document);
     document.createElement = function (tag) {
@@ -69,15 +90,13 @@ function ULTRON_SHIM() {
       return el;
     };
     var _append = Element.prototype.appendChild;
-    Element.prototype.appendChild = function (child) {
-      if (child && child.tagName === 'SCRIPT' && child.src && /ytgame\.js/i.test(child.src)) {
-        return child;
-      }
-      return _append.call(this, child);
+    Element.prototype.appendChild = function (c) {
+      if (c && c.tagName === 'SCRIPT' && c.src && /ytgame\.js/i.test(c.src)) return c;
+      return _append.call(this, c);
     };
   })();
 
-  // 1) API del shim
+  // ── 1) API del shim ──
   var P = function (v) { return function () { return Promise.resolve(v); }; };
   var N = function () {};
   var SAVE = P({ data: '', checksum: '' });
@@ -102,7 +121,7 @@ function ULTRON_SHIM() {
     }
   };
 
-  // 2) Proxy recursivo
+  // ── 2) Proxy recursivo ──
   function wrap(o, p) {
     return new Proxy(o, {
       get: function (t, k) {
@@ -121,7 +140,7 @@ function ULTRON_SHIM() {
     });
   }
 
-  // 3) Blindar el global
+  // ── 3) Blindar el global ──
   var s = wrap(api, 'ytgame');
   Object.defineProperty(window, 'ytgame', {
     get: function () { return s; },
@@ -132,12 +151,12 @@ function ULTRON_SHIM() {
 }
 
 // ══════════════════════════════════════════════════════════════════
-//  Cargador: fetch -> modificar -> document.write
+//  Cargador
 // ══════════════════════════════════════════════════════════════════
 (function () {
-  var LT = String.fromCharCode(60);   // <
-  var GT = String.fromCharCode(62);   // >
-  var SL = String.fromCharCode(47);   // /
+  var LT = String.fromCharCode(60);
+  var GT = String.fromCharCode(62);
+  var SL = String.fromCharCode(47);
   var SC = LT + 'script' + GT;
   var EC = LT + SL + 'script' + GT;
 
@@ -153,7 +172,7 @@ function ULTRON_SHIM() {
     .then(function (html) {
       html = html.replace(/<head([^>]*)>/i, '<head$1><base href="' + BASE_DIR + '">');
 
-      // Quitar cualquier script que cargue el SDK real
+      // Quitar scripts que carguen el SDK real
       var needle = 'ytgame.js';
       var i = html.indexOf(needle);
       while (i !== -1) {
@@ -165,7 +184,7 @@ function ULTRON_SHIM() {
         i = html.indexOf(needle, i + needle.length);
       }
 
-      // Inyectar el shim antes del primer script del juego
+      // Inyectar shim antes del primer script
       var firstScript = html.indexOf(SC);
       if (firstScript !== -1) {
         html = html.slice(0, firstScript) + SHIM + html.slice(firstScript);
