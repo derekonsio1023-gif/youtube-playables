@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Cargando...</title>
+<style>html,body{margin:0;height:100%;background:#000;overflow:hidden}</style>
+</head>
+<body>
+<script>
+(async function () {
+  const GAME_URL = 'https://raw.githack.com/derekonsio1023-gif/youtube-playables/refs/heads/main/fork-n-sausage/index.html';
+  const BASE_DIR = GAME_URL.replace(/[^/]*$/, '');
+
+  // ── Shim mínimo del SDK de YouTube Playables ──
+  const SHIM = `<script>
+  window.ytgame = {
+    game: {
+      firstFrameReady: () => Promise.resolve(),
+      gameReady:       () => Promise.resolve(),
+      loadData:        () => Promise.resolve(null),
+      saveData:        () => Promise.resolve(),
+      sendScore:       () => Promise.resolve(),
+      log:             () => {},
+      getLanguage:     () => Promise.resolve('en'),
+      onPause:         () => {},
+      onResume:        () => {},
+      onStateChange:   () => {},
+      health: {
+        logError:   () => {},
+        logWarning: () => {},
+        logInfo:    () => {}
+      },
+      engagement: { sendScore: () => Promise.resolve() },
+      environment: { getEnvironment: () => Promise.resolve({}) },
+      system: {
+        isAudioEnabled:        () => Promise.resolve(true),
+        onAudioEnabledChange:  () => {}
+      }
+    }
+  };
+  <\\/script>`;
+
+  try {
+    const res  = await fetch(GAME_URL);
+    let   html = await res.text();
+
+    // 1) Meter <base> para que los paths relativos sigan funcionando
+    html = html.replace(/<head([^>]*)>/i,
+      `<head$1><base href="${BASE_DIR}">`);
+
+    // 2) Inyectar el shim ANTES del primer <script>
+    html = html.replace(/<script/i, SHIM + '<script');
+
+    // 3) Reescribir el documento entero con el HTML modificado
+    document.open();
+    document.write(html);
+    document.close();
+  } catch (e) {
+    document.body.innerHTML =
+      '<pre style="color:#ff5555;padding:20px;font-family:monospace">' +
+      'Error cargando el juego:\\n' + e.message + '</pre>';
+  }
+})();
+</script>
+</body>
+</html>
