@@ -18,77 +18,64 @@
   const SHIM_JS = `
 (function(){
   const P = v => () => Promise.resolve(v);
-  const V = () => undefined;
+  const N = () => {};                              // no-op sync
+  const SAVE = P({ data: '', checksum: '' });      // forma que espera Unity
 
   const api = {
     game: {
-      // ---- ciclo de vida ----
-      firstFrameReady:   V,
-      gameReady:         V,
-      onPause:           V,
-      onResume:          V,
-      onStateChange:     V,
-
-      // ---- guardado: ESTO es lo que faltaba ----
-      loadData:          P({ data: '', checksum: '' }),   // <-- objeto vacío, no null
+      firstFrameReady:   N,
+      gameReady:         N,
+      loadData:          SAVE,
       saveData:          P(undefined),
       sendScore:         P(undefined),
-      log:               V,
-
-      // ---- idioma / audio ----
+      log:               N,
       getLanguage:       P('en'),
-
-      // ---- sub-objetos ----
-      health: {
-        logError:   V,
-        logWarning: V,
-        logInfo:    V
-      },
-      engagement: {
-        sendScore:  P(undefined),
-        openStore:  P(undefined)
-      },
-      environment: {
-        getEnvironment: P({})
-      },
-      system: {
-        isAudioEnabled:       P(true),
-        onAudioEnabledChange: V
-      },
-      ads: {
-        requestInterstitialAd: P(undefined),
-        requestRewardedAd:     P({ status: 'closed' })
-      }
+      getSafeArea:       P({ top:0, left:0, right:0, bottom:0 })
     },
 
-    // ---- accesos directos que el SDK también expone en la raíz ----
+    system: {
+      onPause:              N,     // <-- ESTO faltaba
+      onResume:             N,
+      onStateChange:        N,
+      isAudioEnabled:       P(true),
+      onAudioEnabledChange: N
+    },
+
     engagement: {
       sendScore:  P(undefined),
       openStore:  P(undefined)
     },
+
     environment: {
       getEnvironment: P({})
     },
-    system: {
-      isAudioEnabled:       P(true),
-      onAudioEnabledChange: V
+
+    health: {
+      logError:   N,
+      logWarning: N,
+      logInfo:    N
     },
+
     ads: {
       requestInterstitialAd: P(undefined),
       requestRewardedAd:     P({ status: 'closed' })
     }
   };
 
-  // Red de seguridad: cualquier método que falte no peta,
-  // devuelve Promise<{data:'',checksum:''}> (forma segura).
+  // Proxy que envuelve TODO recursivamente (no solo la raíz)
   function wrap(obj, path){
     return new Proxy(obj, {
       get(t, p){
-        if (p === 'then') return undefined;                 // evita "thenable" accidental
+        if (p === 'then') return undefined;               // nunca ser thenable
         if (typeof p === 'symbol') return undefined;
-        if (p in t) return t[p];
-        // Fallback: si alguien pide algo desconocido, le damos un stub llamable
-        const stub = () => Promise.resolve({ data: '', checksum: '' });
+        const v = t[p];
+        if (v !== undefined) {
+          if (typeof v === 'function') return v;          // método: devuélvelo tal cual
+          if (typeof v === 'object' && v !== null) return wrap(v, path + '.' + String(p));  // recursión
+          return v;
+        }
+        // Auto-stub: cualquier método que falte devuelve Promise válida
+        const stub = function(){ return Promise.resolve({ data: '', checksum: '' }); };
         return wrap(stub, path + '.' + String(p));
       },
       apply(){ return Promise.resolve({ data: '', checksum: '' }); }
