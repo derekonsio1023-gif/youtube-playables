@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Cargando…</title>
+<style>html,body{margin:0;height:100%;overflow:hidden;background:#000}</style>
+</head>
+<body>
+<iframe id="frame" style="width:100vw;height:100vh;border:0;display:block"></iframe>
+<script>
+(function () {
+  var LT = String.fromCharCode(60);
+  var GT = String.fromCharCode(62);
+  var SL = String.fromCharCode(47);
+  var EC = LT + SL + 'script' + GT;
+
+  var qs = new URLSearchParams(location.search);
+  var GAME_URL = qs.get('g') || 'https://raw.githack.com/derekonsio1023-gif/youtube-playables/refs/heads/main/mob-control-html5/index.html';
+  var SHIM_URL = 'https://raw.githack.com/derekonsio1023-gif/Ultron-games/main/ultron-shim.js';
+  var BASE_DIR = GAME_URL.replace(/[^/]*$/, '');
+
+  // Shim como script externo (sin escapes, sin CSP inline)
+  var SHIM_TAG = LT + 'script src="' + SHIM_URL + '"' + GT + EC;
+
+  fetch(GAME_URL)
+    .then(function (r) { return r.text(); })
+    .then(function (html) {
+      // 1) base href
+      html = html.replace(/<head([^>]*)>/i, '<head$1><base href="' + BASE_DIR + '">');
+
+      // 2) Quitar scripts estaticos que apunten a ytgame
+      var needle = 'ytgame.js';
+      var i = html.indexOf(needle);
+      while (i !== -1) {
+        var o = html.lastIndexOf(LT, i);
+        var c = html.indexOf(EC, i);
+        if (o !== -1 && c !== -1) {
+          html = html.slice(0, o) + html.slice(c + EC.length);
+        }
+        i = html.indexOf(needle, i + needle.length);
+      }
+
+      // 3) Inyeccion robusta (script externo antes del primer script)
+      var injected = false;
+      function tryAt(re, after) {
+        if (injected) return;
+        var m = re.exec(html);
+        if (!m) return;
+        var pos = after ? m.index + m[0].length : m.index;
+        html = html.slice(0, pos) + SHIM_TAG + html.slice(pos);
+        injected = true;
+      }
+      tryAt(/<script\b/i, false);
+      tryAt(/<\/head\s*>/i, false);
+      tryAt(/<body\b/i, false);
+      tryAt(/<html\b[^>]*>/i, true);
+      if (!injected) html = SHIM_TAG + html;
+
+      console.log('[ULTRON] inyectado:', injected);
+
+      // 4) document.write en el iframe (NO srcdoc)
+      var frame = document.getElementById('frame');
+      var doc = frame.contentDocument || frame.contentWindow.document;
+      doc.open();
+      doc.write(html);
+      doc.close();
+    })
+    .catch(function (e) {
+      console.error('[ULTRON] error:', e);
+      document.body.innerHTML = 'Error: ' + (e && e.message ? e.message : e);
+    });
+})();
+</script>
+</body>
+</html>
