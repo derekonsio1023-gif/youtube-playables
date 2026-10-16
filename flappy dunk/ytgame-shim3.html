@@ -118,7 +118,7 @@
   document.open();
   document.write(html);
   document.close();
-} catch (e) {
+ } catch (e) {
     document.body.innerHTML =
       '<pre style="color:#ff5555;padding:20px;font-family:monospace">' +
       'Error cargando el juego:\n' + (e && e.message ? e.message : e) + '</pre>';
