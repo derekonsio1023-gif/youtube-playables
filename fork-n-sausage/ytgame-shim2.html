@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Cargando…</title>
+<style>html,body{margin:0;height:100%;background:#000;overflow:hidden}</style>
+</head>
+<body>
+<script>
+(async function () {
+  const GAME_URL = 'https://raw.githack.com/derekonsio1023-gif/youtube-playables/refs/heads/main/fork-n-sausage/index.html';
+  const BASE_DIR = GAME_URL.replace(/[^/]*$/, '');
+
+  // ── Shim universal con Proxy ─────────────────────────────────
+  // Cualquier método exista o no en el SDK real, devuelve una
+  // Promise resuelta. Así nunca más "ytgame is not defined" ni
+  // "ytgame.algo is not a function".
+  const SHIM_JS = `
+    (function(){
+      function makeStub(){
+        const fn = function(){ return Promise.resolve(); };
+        return new Proxy(fn, {
+          get(t, p){
+            if (p === 'then') return undefined;   // no ser thenable accidental
+            if (p === Symbol.toPrimitive) return () => '';
+            return makeStub();
+          },
+          apply(){ return Promise.resolve(); }
+        });
+      }
+      window.ytgame = makeStub();
+    })();
+  `;
+
+  // OJO: construimos las etiquetas con concatenación para que el
+  // <script> EXTERNO no se cierre antes de tiempo.
+  const TAG_OPEN  = '<' + 'script>';
+  const TAG_CLOSE = '</' + 'script>';
+  const SHIM = TAG_OPEN + SHIM_JS + TAG_CLOSE;
+
+  try {
+    const res  = await fetch(GAME_URL);
+    let   html = await res.text();
+
+    // 1) <base> para que las rutas relativas sigan funcionando
+    html = html.replace(/<head([^>]*)>/i, '<head$1><base href="' + BASE_DIR + '">');
+
+    // 2) Inyectar el shim ANTES del primer <script> del juego
+    html = html.replace(/<script/i, SHIM + '<script');
+
+    // 3) Reescribir el documento
+    document.open();
+    document.write(html);
+    document.close();
+  } catch (e) {
+    document.body.innerHTML =
+      '<pre style="color:#ff5555;padding:20px;font-family:monospace">' +
+      'Error cargando el juego:\n' + (e && e.message ? e.message : e) + '</pre>';
+  }
+})();
+</script>
+</body>
+</html>
